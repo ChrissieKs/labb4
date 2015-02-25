@@ -28,11 +28,13 @@ public class GameGrid extends Observable{
 		_board = new GameSquareType[size][size];
 		clearGrid();
 
+		// Bygg 4 signaturer som kan verifiera en vinnare horisontellt, vertikalt, och snett både åt sydväst och sydöst (från den punkt den kollar på)
 		_signatures = (ArrayList<Point>[])new ArrayList<?>[4];
 		_signatures[0] = new ArrayList<Point>();
 		_signatures[1] = new ArrayList<Point>();
 		_signatures[2] = new ArrayList<Point>();
 		_signatures[3] = new ArrayList<Point>();
+		// Fyll listorna med offset-punkter
 		for(int i = 0; i < INROW; i++) {
 			_signatures[0].add(new Point(0,i));
 			_signatures[1].add(new Point(i, 0));
@@ -70,10 +72,10 @@ public class GameGrid extends Observable{
 	 * @return true if the insertion worked, false otherwise
 	 */
 	public boolean move(int x, int y, GameSquareType player){
-		if(x >= _size || y >= _size || x < 0 || y < 0)
+		if(x >= _size || y >= _size || x < 0 || y < 0) // Kolla om coords ligger utanför gamegrid
 			return false;
 
-		if(_board[x][y] != GameSquareType.Empty)
+		if(_board[x][y] != GameSquareType.Empty) // Kolla om rutan är tom eller ej
 			return false;
 		_board[x][y] = player;
 
@@ -85,7 +87,7 @@ public class GameGrid extends Observable{
 	/**
 	 * Clears the grid of pieces
 	 */
-	public void clearGrid(){
+	public void clearGrid(){ // Loopar igenom varje array och fyller den med tomma rutor
 		for(int x = 0; x < _size; x++) {
 			Arrays.fill(_board[x], GameSquareType.Empty);
 		}
@@ -100,10 +102,10 @@ public class GameGrid extends Observable{
 	 * @return true if player has 5 in row, false otherwise
 	 */
 	public boolean isWinner(GameSquareType player){
-		for(int y = 0; y < _size; y++) {
-			for(int x = 0; x < _size; x++) {
-				for(ArrayList<Point> sig : _signatures) {
-					if(checkSignature(x, y, sig, player))
+		for(int y = 0; y < _size; y++) { // för varje y
+			for(int x = 0; x < _size; x++) { // för varje x
+				for(ArrayList<Point> sig : _signatures) { // loopa igenom varje signatur
+					if(checkSignature(x, y, sig, player)) // kolla signaturen mot x och y
 						return true;
 				}
 			}
@@ -123,10 +125,10 @@ public class GameGrid extends Observable{
 	 * @return
 	 */
 	private boolean checkSignature(int x, int y, ArrayList<Point> sig, GameSquareType player) {
-		for(Point p : sig) {
-			if(x + p.x >= _size || y + p.y >= _size || x + p.x < 0 || y + p.y < 0)
+		for(Point p : sig) { // för varje offset i signaturen
+			if(x + p.x >= _size || y + p.y >= _size || x + p.x < 0 || y + p.y < 0) // ligger punkten + offset utanför gamegrid?
 				return false;
-			if(_board[x+p.x][y+p.y] != player)
+			if(_board[x+p.x][y+p.y] != player) // är punkten + offset ej lika med player?
 				return false;
 		}
 		return true;
