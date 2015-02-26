@@ -28,7 +28,7 @@ public class GameGrid extends Observable{
 		_board = new GameSquareType[size][size];
 		clearGrid();
 
-		// Bygg 4 signaturer som kan verifiera en vinnare horisontellt, vertikalt, och snett både åt sydväst och sydöst (från den punkt den kollar på)
+		// Bygg 4 signaturer som kan verifiera en vinnare horisontellt, vertikalt, och snett både åt sydväst och sydöst (från den punkt den kollar påå)
 		_signatures = (ArrayList<Point>[])new ArrayList<?>[4];
 		_signatures[0] = new ArrayList<Point>();
 		_signatures[1] = new ArrayList<Point>();
