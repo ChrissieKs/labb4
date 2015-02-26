@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Observable;
 
 /**
- * Represents the 2-d game grid
+ * Represents the 2D game grid
  */
 public class GameGrid extends Observable{
 
