@@ -56,6 +56,7 @@ public class GamePanel extends JPanel implements Observer{
 
 		int size = grid.getSize();
 		for(int x = 0; x<size; x++) {
+			g.setColor(Color.GRAY);
 			g.drawLine(x*UNIT_SIZE, 0, x*UNIT_SIZE, size*UNIT_SIZE);
 			for(int y = 0; y<size; y++) {
 				if(x == 0) {
@@ -65,10 +66,12 @@ public class GamePanel extends JPanel implements Observer{
 				GameSquareType type = grid.getLocation(x, y);
 				switch(type) {
 					case Other:
-						g.drawOval(x*UNIT_SIZE, y*UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+						g.setColor(Color.LIGHT_GRAY);
+						g.fillOval(x * UNIT_SIZE, y * UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
 						break;
 
 					case Me:
+						g.setColor(Color.BLACK);
 						g.fillOval(x*UNIT_SIZE, y*UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
 						break;
 
@@ -76,7 +79,7 @@ public class GamePanel extends JPanel implements Observer{
 				}
 			}
 		}
-
+		g.setColor(Color.GRAY);
 		g.drawLine(0, size*UNIT_SIZE, size*UNIT_SIZE, size*UNIT_SIZE);
 		g.drawLine(size*UNIT_SIZE, 0, size*UNIT_SIZE, size*UNIT_SIZE);
 	}

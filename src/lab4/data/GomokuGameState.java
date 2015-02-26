@@ -157,8 +157,9 @@ public class GomokuGameState extends Observable implements Observer {
 			if(gameGrid.isWinner(GameSquareType.Other)) {
 				currentState = FINISHED;
 				setMessageString("Other guy won!");
+			} else {
+				currentState = MY_TURN;
 			}
-			currentState = MY_TURN;
 		} else {
 			setMessageString("Other guy sent illegal move, GG");
 		}
